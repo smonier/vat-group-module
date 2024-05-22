@@ -1,0 +1,36 @@
+<jnt = 'http://www.jahia.org/jahia/nt/1.0'>
+<jmix = 'http://www.jahia.org/jahia/mix/1.0'>
+<seumix = 'http://modules.se.jahia.org/se-utils/mix/1.0'>
+<vatnt = 'http://www.jahia.org/vat-group/nt/1.0'>
+<vatmix = 'http://www.jahia.org/vat-group/mix/1.0'>
+
+[vatmix:vatGroupEditorialComponents] > jmix:droppableContent, jmix:editorialContent mixin
+
+[vatnt:product] > jnt:content, jmix:mainResource, mix:title, jmix:structuredContent, vatmix:vatGroupEditorialComponents
+- articleId (string) mandatory
+- name (string) mandatory i18n
+- description (string, richtext) mandatory i18n
+- image (weakreference, picker[type='image']) < 'jmix:image'
+- valveType (weakreference, choicelist[nodes='/sites/systemsite/categories/vatgroup/products/valve-type;jnt:category',sort])
+- valveFunction (weakreference, choicelist[nodes='/sites/systemsite/categories/vatgroup/products/valve-function;jnt:category',sort])
+- feature (string) multiple
+- benefit (string) multiple
+
+[vatmix:technical_data] mixin
+ extends = vatnt:product
+- sizes (weakreference, choicelist[nodes='/sites/systemsite/categories/vatgroup/products/size-mm;jnt:category',sort]) multiple
+- actuator (weakreference, choicelist[nodes='/sites/systemsite/categories/vatgroup/products/actuation;jnt:category',sort])
+- body_material (string) multiple
+- standard_flanges (weakreference, choicelist[nodes='/sites/systemsite/categories/vatgroup/products/flange-type;jnt:category',sort]) multiple
+- leak_rate (string)
+- pressure_range (string)
+- cycles_until_first_service (string)
+- temperature (string) multiple
+- mounting_position (string)
+
+[vatnt:productList] > jnt:content, jmix:list, mix:title, jmix:cache, vatmix:vatGroupEditorialComponents
+ - teaser (string, richtext[ckeditor.toolbar='Tinny',ckeditor.customConfig='$context/modules/industrial/javascript/ckeditor/config/small.js']) internationalized
+ - maxItems (long) = 3 indexed=no
+ - folder (weakreference, picker[type='contentfolder'])
+ - filter (weakreference, choicelist[nodes='/sites/systemsite/categories/vatgroup/products/valve-type;jnt:category',sort])
+ - j:subNodesView (string, choicelist[templates=vatnt:product,resourceBundle,image]) nofulltext itemtype = layout
