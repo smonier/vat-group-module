@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content xmlns:j="http://www.jahia.org/jahia/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0">
+   <modules jcr:primaryType="jnt:modules">
+      <vat-group-module j:dependencies="default"
+                        j:modulePriority="0"
+                        j:moduleType="module"
+                        j:title="Vat Group POC Module"
+                        jcr:mixinTypes="jmix:hasExternalProviderExtension"
+                        jcr:primaryType="jnt:module">
+         <sources j:title="Vat Group POC Module (1.0.0-SNAPSHOT)"
+                  jcr:mixinTypes="jmix:hasExternalProviderExtension"
+                  jcr:primaryType="jnt:moduleVersionFolder"
+                  j:staticMountPointProviderKey="module-vat-group-module-1.0.0-SNAPSHOT">
+            <src jcr:mixinTypes="jmix:hasExternalProviderExtension"
+                 jcr:primaryType="jnt:folder">
+               <main jcr:mixinTypes="jmix:hasExternalProviderExtension"
+                     jcr:primaryType="jnt:folder">
+                  <resources jcr:mixinTypes="jmix:hasExternalProviderExtension"
+                             jcr:primaryType="jnt:folder">
+                     <vatnt_product jcr:mixinTypes="jmix:hasExternalProviderExtension"
+                                    jcr:primaryType="jnt:nodeTypeFolder">
+                        <html jcr:mixinTypes="jmix:hasExternalProviderExtension"
+                              jcr:primaryType="jnt:templateTypeFolder">
+                           <product.fullPage.jsp jcr:primaryType="jnt:viewFile"
+                                                 nodeTypeName="vatnt:product"
+                                                 sourceCode="&lt;%@ page language=&#34;java&#34; contentType=&#34;text/html;charset=UTF-8&#34; %&gt;&#xA;&lt;%@ taglib prefix=&#34;template&#34; uri=&#34;http://www.jahia.org/tags/templateLib&#34; %&gt;&#xA;&lt;%@ taglib prefix=&#34;c&#34; uri=&#34;http://java.sun.com/jsp/jstl/core&#34; %&gt;&#xA;&lt;%@ taglib prefix=&#34;fn&#34; uri=&#34;http://java.sun.com/jsp/jstl/functions&#34; %&gt;&#xA;&lt;%@ taglib prefix=&#34;fmt&#34; uri=&#34;http://java.sun.com/jsp/jstl/fmt&#34; %&gt;&#xA;&lt;%@ taglib prefix=&#34;jcr&#34; uri=&#34;http://www.jahia.org/tags/jcr&#34; %&gt;&#xA;&lt;%@ taglib prefix=&#34;ui&#34; uri=&#34;http://www.jahia.org/tags/uiComponentsLib&#34; %&gt;&#xA;&lt;%@ taglib prefix=&#34;functions&#34; uri=&#34;http://www.jahia.org/tags/functions&#34; %&gt;&#xA;&lt;%@ taglib prefix=&#34;query&#34; uri=&#34;http://www.jahia.org/tags/queryLib&#34; %&gt;&#xA;&lt;%@ taglib prefix=&#34;utility&#34; uri=&#34;http://www.jahia.org/tags/utilityLib&#34; %&gt;&#xA;&lt;%@ taglib prefix=&#34;s&#34; uri=&#34;http://www.jahia.org/tags/search&#34; %&gt;&#xA;&lt;%--@elvariable id=&#34;currentNode&#34; type=&#34;org.jahia.services.content.JCRNodeWrapper&#34; --%&gt;&#xA;&lt;%--@elvariable id=&#34;out&#34; type=&#34;java.io.PrintWriter&#34; --%&gt;&#xA;&lt;%--@elvariable id=&#34;script&#34; type=&#34;org.jahia.services.render.scripting.Script&#34; --%&gt;&#xA;&lt;%--@elvariable id=&#34;scriptInfo&#34; type=&#34;java.lang.String&#34; --%&gt;&#xA;&lt;%--@elvariable id=&#34;workspace&#34; type=&#34;java.lang.String&#34; --%&gt;&#xA;&lt;%--@elvariable id=&#34;renderContext&#34; type=&#34;org.jahia.services.render.RenderContext&#34; --%&gt;&#xA;&lt;%--@elvariable id=&#34;currentResource&#34; type=&#34;org.jahia.services.render.Resource&#34; --%&gt;&#xA;&lt;%--@elvariable id=&#34;url&#34; type=&#34;org.jahia.services.render.URLGenerator&#34; --%&gt;&#xA;&#xA;&lt;template:addResources type=&#34;css&#34; resources=&#34;productCard.css&#34;/&gt;&#xA;&#xA;&lt;c:set var=&#34;modalId&#34; value=&#34;${currentNode.identifier}&#34;/&gt;&#xA;&#xA;&lt;c:if test=&#34;${renderContext.editMode}&#34;&gt;&#xA;    &lt;legend&gt;${fn:escapeXml(jcr:label(currentNode.primaryNodeType, currentResource.locale))}&lt;/legend&gt;&#xA;&lt;/c:if&gt;&#xA;&#xA;&#xA;&lt;c:set var=&#34;name&#34; value=&#34;${currentNode.properties['name'].string}&#34;/&gt;&#xA;&lt;c:set var=&#34;description&#34; value=&#34;${currentNode.properties['description'].string}&#34;/&gt;&#xA;&lt;c:set var=&#34;image&#34; value=&#34;${currentNode.properties['image'].node}&#34;/&gt;&#xA;&lt;c:set var=&#34;feature&#34; value=&#34;${currentNode.properties['feature']}&#34;/&gt;&#xA;&lt;c:set var=&#34;benefit&#34; value=&#34;${currentNode.properties['benefit']}&#34;/&gt;&#xA;&lt;c:set var=&#34;title&#34; value=&#34;${currentNode.properties['jcr:title'].string}&#34;/&gt;&#xA;&lt;c:set var=&#34;sizes&#34; value=&#34;${currentNode.properties['sizes']}&#34;/&gt;&#xA;&lt;c:set var=&#34;actuator&#34; value=&#34;${currentNode.properties['actuator'].node}&#34;/&gt;&#xA;&lt;c:set var=&#34;valveType&#34; value=&#34;${currentNode.properties['valveType'].node.displayableName}&#34;/&gt;&#xA;&lt;c:set var=&#34;valveFunction&#34; value=&#34;${currentNode.properties['valveFunction'].node.displayableName}&#34;/&gt;&#xA;&lt;c:set var=&#34;body_material&#34; value=&#34;${currentNode.properties['body_material']}&#34;/&gt;&#xA;&lt;c:set var=&#34;standard_flanges&#34; value=&#34;${currentNode.properties['standard_flanges']}&#34;/&gt;&#xA;&lt;c:set var=&#34;leak_rate&#34; value=&#34;${currentNode.properties['leak_rate'].string}&#34;/&gt;&#xA;&lt;c:set var=&#34;pressure_range&#34; value=&#34;${currentNode.properties['pressure_range'].string}&#34;/&gt;&#xA;&lt;c:set var=&#34;cycles_until_first_service&#34; value=&#34;${currentNode.properties['cycles_until_first_service'].string}&#34;/&gt;&#xA;&lt;c:set var=&#34;temperature&#34; value=&#34;${currentNode.properties['temperature']}&#34;/&gt;&#xA;&lt;c:set var=&#34;mounting_position&#34; value=&#34;${currentNode.properties['mounting_position'].string}&#34;/&gt;&#xA;&lt;c:url value=&#34;${currentNode.url}&#34; var=&#34;contentURL&#34;/&gt;&#xA;&#xA;&lt;template:include&#xA;        view=&#34;hidden.modal&#34;/&gt;&#xA;&#xA;&lt;div class=&#34;product-card  d-flex flex-column&#34;&gt;&#xA;    &lt;div class=&#34;d-flex justify-content-center&#34;&gt;&#xA;        &lt;img src=&#34;${image.url}&#34; class=&#34;card-img-top&#34; alt=&#34;Card image&#34;&gt;&#xA;    &lt;/div&gt;&#xA;    &lt;div class=&#34;card-body&#34;&gt;&#xA;        &lt;span class=&#34;badge badge-secondary&#34;&gt;${valveType}&lt;/span&gt;&#xA;        &lt;span class=&#34;badge badge-info&#34;&gt;${valveFunction}&lt;/span&gt;&#xA;&#xA;        &lt;h3 class=&#34;card-title&#34;&gt;&lt;a href=&#34;${contentURL}&#34; title=&#34;${name}&#34;&gt;${name}&lt;/a&gt;&lt;/h3&gt;&#xA;        &lt;div class=&#34;card-text&#34;&gt;&lt;p&gt;${description}&lt;/p&gt;&#xA;            &lt;p&gt;&lt;strong&gt;&lt;fmt:message key='vatnt_product.benefit'/&gt;&lt;/strong&gt;&#xA;            &lt;ul&gt;&#xA;                &lt;c:forEach items=&#34;${benefit}&#34; var=&#34;item&#34;&gt;&#xA;                    &lt;li&gt;${item.string}&lt;/li&gt;&#xA;                &lt;/c:forEach&gt;&#xA;            &lt;/ul&gt;&#xA;            &lt;/p&gt;&#xA;            &lt;p&gt;&lt;strong&gt;&lt;fmt:message key='vatnt_product.feature'/&gt;&lt;/strong&gt;&#xA;            &lt;ul&gt;&#xA;                &lt;c:forEach items=&#34;${feature}&#34; var=&#34;item&#34;&gt;&#xA;                    &lt;li&gt;${item.string}&lt;/li&gt;&#xA;                &lt;/c:forEach&gt;&#xA;            &lt;/ul&gt;&#xA;            &lt;/p&gt;&#xA;&#xA;            &lt;div class=&#34;text-center&#34;&gt;&#xA;                &lt;hr class=&#34;mt-2&#34;/&gt;&#xA;                &lt;button type=&#34;button&#34;&#xA;                        class=&#34;btn btn-outline-dark btn-sm&#34;&#xA;                        data-toggle=&#34;modal&#34;&#xA;                        data-target=&#34;#modal-${modalId}&#34;&gt;&#xA;                    &lt;fmt:message key='vatmix_technical_data'/&gt;&#xA;                &lt;/button&gt;&#xA;            &lt;/div&gt;&#xA;        &lt;/div&gt;&#xA;    &lt;/div&gt;&#xA;&lt;/div&gt;"/>
+                        </html>
+                     </vatnt_product>
+                  </resources>
+               </main>
+            </src>
+         </sources>
+         <portlets jcr:primaryType="jnt:portletFolder"/>
+         <files jcr:primaryType="jnt:folder"/>
+         <contents jcr:primaryType="jnt:contentFolder"/>
+         <templates j:rootTemplatePath="/base" jcr:primaryType="jnt:templatesFolder">
+            <files jcr:primaryType="jnt:folder"/>
+            <contents jcr:primaryType="jnt:contentFolder"/>
+            <product-content-template j:applyOn="vatnt:product"
+                                      j:defaultTemplate="true"
+                                      j:hiddenTemplate="false"
+                                      jcr:primaryType="jnt:contentTemplate">
+               <j:translation_en jcr:language="en"
+                                 jcr:mixinTypes="mix:title"
+                                 jcr:primaryType="jnt:translation"
+                                 jcr:title="Product content template"/>
+               <j:translation_fr jcr:language="fr"
+                                 jcr:mixinTypes="mix:title"
+                                 jcr:primaryType="jnt:translation"
+                                 jcr:title="Training content template"/>
+               <pagecontent jcr:mixinTypes="jmix:systemNameReadonly"
+                            jcr:primaryType="jnt:contentList">
+                  <main-resource-display j:mainResourceView="fullPage" jcr:primaryType="jnt:mainResourceDisplay"/>
+               </pagecontent>
+            </product-content-template>
+         </templates>
+      </vat-group-module>
+   </modules>
+</content>

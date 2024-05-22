@@ -45,6 +45,18 @@
 <c:set var="temperature" value="${currentNode.properties['temperature']}"/>
 <c:set var="mounting_position" value="${currentNode.properties['mounting_position'].string}"/>
 <c:url value="${currentNode.url}" var="contentURL"/>
+<jcr:nodeProperty node="${currentNode}" name="identifier" var="identifier"/>
+<jcr:nodeProperty node="${currentNode}" name="jcr:uuid" var="uuid"/>
+<c:set var="productID" value="${fn:replace(uuid,'-','_')}"/>
+
+
+<script>
+    const product_${productID} = {
+        uuid: "${uuid}",
+        pimid: "${identifier}",
+        qty: 1
+    }
+</script>
 
 <template:include
         view="hidden.modal"/>
