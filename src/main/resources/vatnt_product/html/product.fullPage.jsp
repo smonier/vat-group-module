@@ -48,7 +48,11 @@
 <jcr:nodeProperty node="${currentNode}" name="jcr:uuid" var="uuid"/>
 <c:set var="productID" value="${fn:replace(uuid,'-','_')}"/>
 
-
+<style>
+    .hero-header {
+        background-image: url('path/to/full-width-background.jpg');
+    }
+</style>
 <script>
     const product_${productID} = {
         uuid: "${uuid}",
@@ -58,21 +62,30 @@
 </script>
 <c:set var="imageNode" value="${currentNode.properties['image'].node}"/>
 <template:addCacheDependency node="${imageNode}"/>
-<c:set var="width" value="${not empty currentResource.moduleParams.mediaWidth ? currentResource.moduleParams.mediaWidth : '1920'}"/>
+<c:set var="width"
+       value="${not empty currentResource.moduleParams.mediaWidth ? currentResource.moduleParams.mediaWidth : '1920'}"/>
 <c:set var="height" value="${currentResource.moduleParams.mediaHeight}"/>
 <c:set var="scale" value="${currentResource.moduleParams.mediaScale}"/>
 <c:set var="quality" value="${currentResource.moduleParams.mediaQuality}"/>
 
-<c:catch var ="getUrlException">
-    <c:set var="imageURL" value="${imageNode.getUrl(['width:'.concat(width),'height:'.concat(height),'scale:'.concat(scale),'quality:'.concat(quality)])}"/>
+<c:catch var="getUrlException">
+    <c:set var="imageURL"
+           value="${imageNode.getUrl(['width:'.concat(width),'height:'.concat(height),'scale:'.concat(scale),'quality:'.concat(quality)])}"/>
 </c:catch>
-<c:if test = "${getUrlException != null}">
+<c:if test="${getUrlException != null}">
     <c:set var="imageURL" value="${imageNode.getUrl()}"/>
 </c:if>
+<style>
+    .hero-header {
+        background-image: url('${imageURL}');
+    }
+</style>
 <div class="inner-page">
     <div class="slider-item" style="background-image: url('${imageURL}');">
+
     </div>
 </div>
+
 <section class="pb-5">
     <div class="container container-content bg-white">
         <div class="row justify-content-center">
@@ -82,9 +95,11 @@
                 <span class="badge badge-info">${valveFunction}</span>
 
             </div>
+            <img src="${imageURL}" alt="Smaller Image" class="right-aligned-image">
+
         </div>
 
-        <div class="row row-teaser justify-content-center">
+        <div class="row row-teaser justify-content-center mb-5">
             <div class="col-md-10">
                 <div class="lead">
                     ${description}
@@ -92,8 +107,8 @@
             </div>
         </div>
 
-        <div class="row row-article justify-content-center">
-            <div class="col-6">
+        <div class="row row-article justify-content-center mt-5">
+            <div class="col-md-6">
                 <p><strong><fmt:message key='vatnt_product.benefit'/></strong>
                 <ul>
                     <c:forEach items="${benefit}" var="item">
@@ -102,7 +117,7 @@
                 </ul>
                 </p>
             </div>
-            <div class="col-6">
+            <div class="col-md-6">
                 <p><strong><fmt:message key='vatnt_product.feature'/></strong>
                 <ul>
                     <c:forEach items="${feature}" var="item">
@@ -112,55 +127,76 @@
                 </p>
             </div>
         </div>
-
-
-    </div>
-    <div class="card-bottom d-flex justify-content-center align-items-center text-center">
-        <div class="card-text mt-auto">
-            <p><strong><fmt:message key='vatmix_technical_data.sizes'/></strong>
-                <c:forEach items="${sizes}" var="item">
-            <li>${item.node.displayableName}
-                </c:forEach>
-            </p>
-            <p><strong><fmt:message key='vatmix_technical_data.actuator'/></strong>
-            <li>${actuator.name}
-            </p>
-            <p>
-                <strong><fmt:message key='vatmix_technical_data.body_material'/></strong>
-
-                <c:forEach items="${body_material}" var="item">
-            <li>${item.string}
-                </c:forEach>
-            </p>
-            <p>
-                <strong><fmt:message key='vatmix_technical_data.standard_flanges'/></strong>
-                <c:forEach items="${standard_flanges}" var="item">
-            <li>${item.node.displayableName}
-                </c:forEach>
-            </p>
-            <p><strong><fmt:message key='vatmix_technical_data.leak_rate'/></strong>
-            <li>${leak_rate}
-            </p>
-            <p><strong><fmt:message key='vatmix_technical_data.pressure_range'/></strong>
-            <li>${pressure_range}
-            </p>
-            <p><strong><fmt:message key='vatmix_technical_data.cycles_until_first_service'/></strong>
-            <li>${cycles_until_first_service}
-            </p>
-            <p>
-                <strong><fmt:message key='vatmix_technical_data.temperature'/></strong>
-                <c:forEach items="${temperature}" var="item">
-            <li>${item.string}
-                </c:forEach>
-            </p>
+        <div class="row row-article justify-content-center mt-5">
+            <div class="col-6">
+                <p><strong><fmt:message key='vatmix_technical_data.sizes'/></strong>
+                <ul>
+                    <c:forEach items="${sizes}" var="item">
+                    <li>${item.node.displayableName}
+                        </c:forEach>
+                </ul>
+                </p>
+                <p><strong><fmt:message key='vatmix_technical_data.actuator'/></strong>
+                <ul>
+                    <li>${actuator.name}
+                </ul>
+                </p>
+            </div>
+            <div class="col-6">
+                <p>
+                    <strong><fmt:message key='vatmix_technical_data.body_material'/></strong>
+                <ul>
+                    <c:forEach items="${body_material}" var="item">
+                    <li>${item.string}
+                        </c:forEach>
+                </ul>
+                </p>
+                <p>
+                    <strong><fmt:message key='vatmix_technical_data.standard_flanges'/></strong>
+                <ul>
+                    <c:forEach items="${standard_flanges}" var="item">
+                    <li>${item.node.displayableName}
+                        </c:forEach>
+                </ul>
+                </p>
+            </div>
+        </div>
+        <div class="row row-article justify-content-center mt-5">
+            <div class="col-6">
+                <p><strong><fmt:message key='vatmix_technical_data.leak_rate'/></strong>
+                <ul>
+                    <li>${leak_rate}
+                </ul>
+                </p>
+                <p><strong><fmt:message key='vatmix_technical_data.pressure_range'/></strong>
+                <ul>
+                    <li>${pressure_range}
+                </ul>
+                </p>
+            </div>
+            <div class="col-6">
+                <p><strong><fmt:message key='vatmix_technical_data.cycles_until_first_service'/></strong>
+                <ul>
+                    <li>${cycles_until_first_service}
+                </ul>
+                </p>
+                <p>
+                    <strong><fmt:message key='vatmix_technical_data.temperature'/></strong>
+                <ul>
+                    <c:forEach items="${temperature}" var="item">
+                    <li>${item.string}
+                        </c:forEach>
+                </ul>
+                </p>
+            </div>
         </div>
     </div>
-    <div class="card-bottom d-flex justify-content-center align-items-center text-center">
-        <div class="card-text">
 
-                    <div class="btn btn-primary" onclick="window._jsc_.addToCart(product_${productID})">
-                            Add to Cart
-                    </div>
+    <div class="card-bottom d-flex justify-content-center align-items-center text-center mt-5">
+        <div class="card-text">
+            <div class="btn btn-primary" onclick="window._jsc_.addToCart(product_${productID})">
+                Add to Cart
+            </div>
         </div>
     </div>
 </section>

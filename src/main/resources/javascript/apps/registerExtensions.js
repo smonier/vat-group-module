@@ -1,5 +1,6 @@
 window.jahia.i18n.loadNamespaces('vat-group-module');
 
+/*
 window.jahia.uiExtender.registry.add('callback', 'vat-group-moduleExample', {
     targets: ['jahiaApp-init:60'],
     callback: function () {
@@ -33,3 +34,4 @@ window.jahia.uiExtender.registry.add('callback', 'vat-group-moduleExample', {
         });
     }
 });
+*/
