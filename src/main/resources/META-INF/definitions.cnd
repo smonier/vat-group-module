@@ -34,3 +34,21 @@
  - folder (weakreference, picker[type='contentfolder'])
  - filter (weakreference, choicelist[nodes='/sites/systemsite/categories/vatgroup/products/valve-type;jnt:category',sort])
  - j:subNodesView (string, choicelist[templates=vatnt:product,resourceBundle,image]) nofulltext itemtype = layout
+
+[vatnt:heroBanner] > jnt:content, mix:title, vatmix:vatGroupEditorialComponents
+ - teaser (string, richtext[ckeditor.toolbar='Tinny',ckeditor.customConfig='$context/modules/industrial/javascript/ckeditor/config/small.js']) internationalized
+ - backgroundImage (weakreference, picker[type='image']) < 'jmix:image'
+ - image (weakreference, picker[type='image']) < 'jmix:image'
+
+[vatmix:withImage] mixin
+ extends = jnt:page
+ - image (weakreference, picker[type='image'])  < 'jmix:image'
+ - alt (string) i18n
+
+[vatmix:pageDesc] mixin
+ extends = jnt:page
+
+ - pageDesc (string, textarea) internationalized nofulltext
+[vatnt:menuBlockCategory] > jnt:content, mix:title, vatmix:vatGroupEditorialComponents
+
+[vatnt:entetePageRubrique] > jnt:content, mix:title, vatmix:vatGroupEditorialComponents

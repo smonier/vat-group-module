@@ -10,20 +10,30 @@
 <c:set var="titleEscaped" value="${not empty title ? fn:escapeXml(title) : fn:escapeXml(currentNode.name)}"/>
 
 <c:set var="maxItems" value="${currentNode.properties['maxItems'].long}"/>
-<c:set var="filterId" value="${currentNode.properties['filter'].string}"/>
+
 <c:set var="folderPath" value="${currentNode.properties['folder'].node.path}"/>
 <c:if test="${empty folderPath}">
     <c:set var="folderPath" value="${currentNode.resolveSite.path}"/>
 </c:if>
+<utility:logger level="INFO" value="pageFilter2 : ${pageFilter}"/>
 
 <c:set var="queryConstraint" value=""/>
-<c:if test="${not empty filterId}">
-    <c:set var="queryConstraint" value="and products.[valveType]='${filterId}'"/>
-</c:if>
+<c:choose>
+    <c:when test="${empty pageFilter}">
+        <c:set var="filterId" value="${currentNode.properties['filter'].string}"/>
+        <c:if test="${not empty filterId}">
+            <c:set var="queryConstraint" value="and products.[valveType]='${filterId}'"/>
+        </c:if>
+    </c:when>
+    <c:otherwise>
+        <c:set var="queryConstraint" value="and products.[valveType]='${pageFilter}'"/>
+    </c:otherwise>
+</c:choose>
+
 
 <c:set var="productsStatementAll" value="select * from [vatnt:product] as products where ISDESCENDANTNODE(products,'${folderPath}') ${queryConstraint} order by products.[name] asc"/>
 
-<utility:logger level="INFO" value="productsStatementAll : ${lastContentsStatement}"/>
+<utility:logger level="INFO" value="productsStatementAll : ${productsStatementAll}"/>
 <utility:logger level="INFO" value="maxItems : ${maxItems}"/>
 
 <query:definition var="listQuery" statement="${productsStatementAll}" limit="${maxItems}"  />

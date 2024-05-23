@@ -25,7 +25,7 @@
 <c:set var="subNodesView" value="${currentNode.properties['j:subNodesView'].string}"/>
 <c:set var="title" value="${currentNode.properties['jcr:title'].string}"/>
 <c:set var="description" value="${currentNode.properties['jcr:description'].string}"/>
-<c:if test="${empty subNodeView}">
+<c:if test="${empty subNodesView}">
     <c:set var="subNodeView" value="default"/>
 </c:if>
 
@@ -46,7 +46,7 @@
                 </div>
                 <div class="row lastEvent d-flex align-items-stretch mb-3">
                     <c:forEach items="${result.nodes}" var="node">
-                        <template:module view="${subNodeView}" node="${node}" />
+                        <template:module view="${subNodesView}" node="${node}" />
                     </c:forEach>
                 </div>
             </div>

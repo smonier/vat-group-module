@@ -10,7 +10,7 @@
 
 .product-card {
   float: left;
-  width: 30%;
+  width: 31%;
   background-color: #ffffff; /* Placeholder for $white */
   -webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
@@ -295,4 +295,11 @@
 
 .right-aligned-image {
   height: 70vh;
+}
+
+.teaserImg {
+  max-height: 200px; /* Limit the height */
+  object-fit: contain; /* Maintain aspect ratio */
+  width: 100%; /* Ensure full width */
+  margin-top: 20px;
 }
