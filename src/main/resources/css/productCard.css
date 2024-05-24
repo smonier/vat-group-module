@@ -258,6 +258,7 @@
   left: 10%;
   width: 80%; /* Stretch the button across the card width */
   margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .training-card  {
@@ -302,4 +303,9 @@
   object-fit: contain; /* Maintain aspect ratio */
   width: 100%; /* Ensure full width */
   margin-top: 20px;
+  transition: transform 0.3s ease; /* Smooth transition for zoom effect */
+}
+
+.card:hover .teaserImg {
+  transform: scale(1.05); /* Slight zoom effect on hover */
 }

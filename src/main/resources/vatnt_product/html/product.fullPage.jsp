@@ -34,9 +34,9 @@
 <c:set var="benefit" value="${currentNode.properties['benefit']}"/>
 <c:set var="title" value="${currentNode.properties['jcr:title'].string}"/>
 <c:set var="sizes" value="${currentNode.properties['sizes']}"/>
-<c:set var="actuator" value="${currentNode.properties['actuator'].node}"/>
-<c:set var="valveType" value="${currentNode.properties['valveType'].node.displayableName}"/>
-<c:set var="valveFunction" value="${currentNode.properties['valveFunction'].node.displayableName}"/>
+<c:set var="actuator" value="${currentNode.properties['actuator']}"/>
+<c:set var="valveType" value="${currentNode.properties['valveType']}"/>
+<c:set var="valveFunction" value="${currentNode.properties['valveFunction']}"/>
 <c:set var="body_material" value="${currentNode.properties['body_material']}"/>
 <c:set var="standard_flanges" value="${currentNode.properties['standard_flanges']}"/>
 <c:set var="leak_rate" value="${currentNode.properties['leak_rate'].string}"/>
@@ -91,8 +91,12 @@
         <div class="row justify-content-center">
             <div class="col-md-10 mb-5">
                 <h1>${name}</h1>
-                <span class="badge badge-secondary">${valveType}</span>
-                <span class="badge badge-info">${valveFunction}</span>
+                <c:forEach items="${valveType}" var="item">
+                    <span class="badge badge-secondary">${item.node.displayableName}</span>
+                </c:forEach>
+                <c:forEach items="${valveFunction}" var="item">
+                    <span class="badge badge-info">${item.node.displayableName}</span>
+                </c:forEach>
 
             </div>
             <img src="${imageURL}" alt="Smaller Image" class="right-aligned-image">
@@ -132,13 +136,15 @@
                 <p><strong><fmt:message key='vatmix_technical_data.sizes'/></strong>
                 <ul>
                     <c:forEach items="${sizes}" var="item">
-                    <li>${item.node.displayableName}
-                        </c:forEach>
+                        <li>${item.node.displayableName}
+                    </c:forEach>
                 </ul>
                 </p>
                 <p><strong><fmt:message key='vatmix_technical_data.actuator'/></strong>
                 <ul>
-                    <li>${actuator.name}
+                    <c:forEach items="${actuator}" var="item">
+                        <li>${item.node.displayableName}
+                    </c:forEach>
                 </ul>
                 </p>
             </div>
@@ -147,16 +153,16 @@
                     <strong><fmt:message key='vatmix_technical_data.body_material'/></strong>
                 <ul>
                     <c:forEach items="${body_material}" var="item">
-                    <li>${item.string}
-                        </c:forEach>
+                        <li>${item.string}
+                    </c:forEach>
                 </ul>
                 </p>
                 <p>
                     <strong><fmt:message key='vatmix_technical_data.standard_flanges'/></strong>
                 <ul>
                     <c:forEach items="${standard_flanges}" var="item">
-                    <li>${item.node.displayableName}
-                        </c:forEach>
+                        <li>${item.node.displayableName}
+                    </c:forEach>
                 </ul>
                 </p>
             </div>
@@ -184,8 +190,8 @@
                     <strong><fmt:message key='vatmix_technical_data.temperature'/></strong>
                 <ul>
                     <c:forEach items="${temperature}" var="item">
-                    <li>${item.string}
-                        </c:forEach>
+                        <li>${item.string}
+                    </c:forEach>
                 </ul>
                 </p>
             </div>

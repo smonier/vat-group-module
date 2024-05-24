@@ -23,7 +23,7 @@
 <c:set var="title" value="${currentNode.properties['jcr:title'].string}"/>
 <c:set var="description" value="${currentNode.properties['jcr:description'].string}"/>
 <c:set var="sizes" value="${currentNode.properties['sizes']}"/>
-<c:set var="actuator" value="${currentNode.properties['actuator'].node}"/>
+<c:set var="actuator" value="${currentNode.properties['actuator']}"/>
 <c:set var="body_material" value="${currentNode.properties['body_material']}"/>
 <c:set var="standard_flanges" value="${currentNode.properties['standard_flanges']}"/>
 <c:set var="leak_rate" value="${currentNode.properties['leak_rate'].string}"/>
@@ -50,39 +50,40 @@
             <div class="modal-body">
                 <p><strong><fmt:message key='vatmix_technical_data.sizes'/></strong>
                     <c:forEach items="${sizes}" var="item">
-                <li>${item.node.displayableName}
+                        <li>${item.node.displayableName}
                     </c:forEach>
                 </p>
                 <p><strong><fmt:message key='vatmix_technical_data.actuator'/></strong>
-                <li>${actuator.name}
+                    <c:forEach items="${actuator}" var="item">
+                        <li>${item.node.displayableName}
+                    </c:forEach>
                 </p>
                 <p>
                     <strong><fmt:message key='vatmix_technical_data.body_material'/></strong>
-
                     <c:forEach items="${body_material}" var="item">
-                <li>${item.string}
+                        <li>${item.string}
                     </c:forEach>
                 </p>
                 <p>
                     <strong><fmt:message key='vatmix_technical_data.standard_flanges'/></strong>
                     <c:forEach items="${standard_flanges}" var="item">
-                <li>${item.node.displayableName}
+                        <li>${item.node.displayableName}
                     </c:forEach>
                 </p>
                 <p><strong><fmt:message key='vatmix_technical_data.leak_rate'/></strong>
-                <li>${leak_rate}
+                    <li>${leak_rate}
                 </p>
                 <p><strong><fmt:message key='vatmix_technical_data.pressure_range'/></strong>
-                <li>${pressure_range}
+                    <li>${pressure_range}
                 </p>
                 <p><strong><fmt:message key='vatmix_technical_data.cycles_until_first_service'/></strong>
-                <li>${cycles_until_first_service}
+                    <li>${cycles_until_first_service}
                 </p>
                 <p>
-                    <strong><fmt:message key='vatmix_technical_data.temperature'/></strong>
-                    <c:forEach items="${temperature}" var="item">
-                <li>${item.string}
-                    </c:forEach>
+                <strong><fmt:message key='vatmix_technical_data.temperature'/></strong>
+                <c:forEach items="${temperature}" var="item">
+                    <li>${item.string}
+                </c:forEach>
                 </p>
             </div>
             <%--            <div class="modal-footer">--%>

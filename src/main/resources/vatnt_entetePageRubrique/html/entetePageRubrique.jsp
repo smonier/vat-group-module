@@ -37,6 +37,6 @@
         <p>${pageDesc}</p>
     </div>
     <div class="hero-image">
-        <img src="${imageUrl}" alt="${imageAlt}"> <!-- Replace with your image URL -->
+        <img src="${imageUrl}" alt="${imageAlt}" class="rounded shadow">
     </div>
 </div>

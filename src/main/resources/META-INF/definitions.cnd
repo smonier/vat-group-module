@@ -11,15 +11,15 @@
 - name (string) mandatory i18n
 - description (string, richtext) mandatory i18n
 - image (weakreference, picker[type='image']) < 'jmix:image'
-- valveType (weakreference, choicelist[nodes='/sites/systemsite/categories/vatgroup/products/valve-type;jnt:category',sort])
-- valveFunction (weakreference, choicelist[nodes='/sites/systemsite/categories/vatgroup/products/valve-function;jnt:category',sort])
+- valveType (weakreference, choicelist[nodes='/sites/systemsite/categories/vatgroup/products/valve-type;jnt:category',sort]) multiple
+- valveFunction (weakreference, choicelist[nodes='/sites/systemsite/categories/vatgroup/products/valve-function;jnt:category',sort]) multiple
 - feature (string) multiple
 - benefit (string) multiple
 
 [vatmix:technical_data] mixin
  extends = vatnt:product
 - sizes (weakreference, choicelist[nodes='/sites/systemsite/categories/vatgroup/products/size-mm;jnt:category',sort]) multiple
-- actuator (weakreference, choicelist[nodes='/sites/systemsite/categories/vatgroup/products/actuation;jnt:category',sort])
+- actuator (weakreference, choicelist[nodes='/sites/systemsite/categories/vatgroup/products/actuation;jnt:category',sort]) multiple
 - body_material (string) multiple
 - standard_flanges (weakreference, choicelist[nodes='/sites/systemsite/categories/vatgroup/products/flange-type;jnt:category',sort]) multiple
 - leak_rate (string)
@@ -47,8 +47,8 @@
 
 [vatmix:pageDesc] mixin
  extends = jnt:page
-
  - pageDesc (string, textarea) internationalized nofulltext
+
 [vatnt:menuBlockCategory] > jnt:content, mix:title, vatmix:vatGroupEditorialComponents
 
 [vatnt:entetePageRubrique] > jnt:content, mix:title, vatmix:vatGroupEditorialComponents

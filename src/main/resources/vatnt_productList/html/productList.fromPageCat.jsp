@@ -48,7 +48,7 @@
     <c:otherwise>
         <div class="container">
             <div class="col-12">
-                <div class="row">
+                <div class="row mb-5">
                     <h2>${title}</h2>
                     <c:out value="${not empty teaser ? teaser : ''}" escapeXml="false"/>
                 </div>

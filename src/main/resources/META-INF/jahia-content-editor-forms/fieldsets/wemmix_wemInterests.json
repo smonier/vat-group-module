@@ -1,0 +1,13 @@
+{
+  "name": "wemmix:wemInterests",
+  "priority": 2.0,
+  "fields": [
+    {
+      "name": "wem:interests",
+      "target": {
+        "sectionName" : "classification",
+        "rank": -1
+      }
+    }
+  ]
+}

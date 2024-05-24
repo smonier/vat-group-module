@@ -23,13 +23,13 @@
 <c:set var="name" value="${currentNode.properties['name'].string}"/>
 <c:set var="description" value="${currentNode.properties['description'].string}"/>
 <c:set var="image" value="${currentNode.properties['image'].node}"/>
-<c:set var="valveType" value="${currentNode.properties['valveType'].node.displayableName}"/>
-<c:set var="valveFunction" value="${currentNode.properties['valveFunction'].node.displayableName}"/>
+<c:set var="valveType" value="${currentNode.properties['valveType']}"/>
+<c:set var="valveFunction" value="${currentNode.properties['valveFunction']}"/>
 <c:set var="feature" value="${currentNode.properties['feature']}"/>
 <c:set var="benefit" value="${currentNode.properties['benefit']}"/>
 <c:set var="title" value="${currentNode.properties['jcr:title'].string}"/>
 <c:set var="sizes" value="${currentNode.properties['sizes']}"/>
-<c:set var="actuator" value="${currentNode.properties['actuator'].node.displayableName}"/>
+<c:set var="actuator" value="${currentNode.properties['actuator']}"/>
 <c:set var="body_material" value="${currentNode.properties['body_material']}"/>
 <c:set var="standard_flanges" value="${currentNode.properties['standard_flanges']}"/>
 <c:set var="leak_rate" value="${currentNode.properties['leak_rate'].string}"/>
@@ -37,6 +37,7 @@
 <c:set var="cycles_until_first_service" value="${currentNode.properties['cycles_until_first_service'].string}"/>
 <c:set var="temperature" value="${currentNode.properties['temperature']}"/>
 <c:set var="mounting_position" value="${currentNode.properties['mounting_position'].string}"/>
+<c:url value="${currentNode.url}" var="contentURL"/>
 
 
 <div class="col-md-4 mb-4 d-flex align-items-stretch">
@@ -44,12 +45,16 @@
 		<img src="${image.url}" class="card-img-top teaserImg" alt="Card Image">
 		<div class="card-body">
 			<h3 class="card-title"><a href="${contentURL}" title="${name}">${name}</a></h3>
-
-			<span class="badge badge-secondary">${valveType}</span>
-			<span class="badge badge-info">${valveFunction}</span>
+			<c:forEach items="${valveType}" var="item">
+				<span class="badge badge-secondary">${item.node.displayableName}</span>
+			</c:forEach>
+			<c:forEach items="${valveFunction}" var="item">
+				<span class="badge badge-info">${item.node.displayableName}</span>
+			</c:forEach>
 			<div class="card-text">${description}</div>
-			<a href="${contentURL}" class="btn btn-primary btn-bottom">Read more</a>
-
+			<div class="card-text mt-2">
+				<a href="${contentURL}" class="btn btn-primary btn-bottom">Read more</a>
+			</div>
 		</div>
 	</div>
 </div>
