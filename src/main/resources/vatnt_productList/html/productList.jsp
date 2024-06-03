@@ -26,7 +26,7 @@
 <c:set var="title" value="${currentNode.properties['jcr:title'].string}"/>
 <c:set var="description" value="${currentNode.properties['jcr:description'].string}"/>
 <c:if test="${empty subNodesView}">
-    <c:set var="subNodeView" value="default"/>
+    <c:set var="subNodeView" value="teaser"/>
 </c:if>
 
 <template:include view="hidden.load"/>

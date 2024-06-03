@@ -19,6 +19,7 @@
 <%--@elvariable id="url" type="org.jahia.services.render.URLGenerator" --%>
 
 <template:addResources type="css" resources="productCard.css"/>
+<template:addResources type="css" resources="productBanner.css"/>
 
 <c:set var="modalId" value="${currentNode.identifier}"/>
 
@@ -27,9 +28,19 @@
 </c:if>
 
 
-<c:set var="name" value="${currentNode.properties['name'].string}"/>
-<c:set var="description" value="${currentNode.properties['description'].string}"/>
-<c:set var="image" value="${currentNode.properties['image'].node}"/>
+<c:set var="uuid" value="${currentNode.properties['jcr:uuid'].string}"/>
+<c:set var="pimid" value="${currentNode.properties['shop:pimid'].string}"/>
+<c:set var="title" value="${currentNode.properties['jcr:title'].string}"/>
+<c:set var="description" value="${currentNode.properties['shop:description'].string}"/>
+<c:set var="categories" value="${currentNode.properties['j:defaultCategory']}"/>
+<c:set var="price" value="${currentNode.properties['shop:price'].string}"/>
+<c:set var="devise" value="${currentNode.properties['shop:devise'].string}"/>
+<c:set var="imageNode" value="${currentNode.properties['shop:image'].node}"/>
+<c:if test="${not empty imageNode}">
+    <c:url var="imageURL" value="${imageNode.url}" context="/"/>
+</c:if>
+<c:url var="productURL" value="${currentNode.url}" context="/"/>
+<c:set var="productID" value="${fn:replace(uuid,'-','_')}"/>
 <c:set var="feature" value="${currentNode.properties['feature']}"/>
 <c:set var="benefit" value="${currentNode.properties['benefit']}"/>
 <c:set var="title" value="${currentNode.properties['jcr:title'].string}"/>
@@ -44,23 +55,16 @@
 <c:set var="cycles_until_first_service" value="${currentNode.properties['cycles_until_first_service'].string}"/>
 <c:set var="temperature" value="${currentNode.properties['temperature']}"/>
 <c:set var="mounting_position" value="${currentNode.properties['mounting_position'].string}"/>
-<c:url value="${currentNode.url}" var="contentURL"/>
-<jcr:nodeProperty node="${currentNode}" name="jcr:uuid" var="uuid"/>
-<c:set var="productID" value="${fn:replace(uuid,'-','_')}"/>
 
-<style>
-    .hero-header {
-        background-image: url('path/to/full-width-background.jpg');
-    }
-</style>
+
+
 <script>
     const product_${productID} = {
         uuid: "${uuid}",
-        pimid: "${name}",
+        pimid: "${pimid}",
         qty: 1
     }
 </script>
-<c:set var="imageNode" value="${currentNode.properties['image'].node}"/>
 <template:addCacheDependency node="${imageNode}"/>
 <c:set var="width"
        value="${not empty currentResource.moduleParams.mediaWidth ? currentResource.moduleParams.mediaWidth : '1920'}"/>
@@ -76,13 +80,17 @@
     <c:set var="imageURL" value="${imageNode.getUrl()}"/>
 </c:if>
 <style>
-    .hero-header {
-        background-image: url('${imageURL}');
+    .hero-banner {
+        background-image: url('https://vatvalve.vatstatic.com/images/placeholders/bg-pattern@2x.jpg'); /* Replace with your background image URL */
     }
 </style>
-<div class="inner-page">
-    <div class="slider-item" style="background-image: url('${imageURL}');">
 
+<div class="hero-banner">
+    <div class="hero-content">
+        <h1>${title}</h1>
+    </div>
+    <div class="hero-image">
+        <img src="${imageURL}" alt="${pimid}" class="rounded shadow">
     </div>
 </div>
 
@@ -90,7 +98,7 @@
     <div class="container container-content bg-white">
         <div class="row justify-content-center">
             <div class="col-md-10 mb-5">
-                <h1>${name}</h1>
+                <h1>${title}</h1>
                 <c:forEach items="${valveType}" var="item">
                     <span class="badge badge-secondary">${item.node.displayableName}</span>
                 </c:forEach>
@@ -197,12 +205,12 @@
             </div>
         </div>
     </div>
-
-    <div class="card-bottom d-flex justify-content-center align-items-center text-center mt-5">
-        <div class="card-text">
-            <div class="btn btn-primary" onclick="window._jsc_.addToCart(product_${productID})">
-                Add to Cart
-            </div>
-        </div>
+    <div class="row row-article justify-content-center mt-5">
+        <div class="col-md-4">
+            <div class="card-buttons">
+                <button onclick="window._jsc_.addToCart(product_${productID})" class="btn btn-primary btn-block">Add to Cart</button>
+                <button onclick="window._jsc_.openCartDetails()" class="btn btn-primary btn-block">See my Cart</button>
+            </div>            </div>
     </div>
+
 </section>

@@ -36,9 +36,10 @@
          <templates j:rootTemplatePath="/base" jcr:primaryType="jnt:templatesFolder">
             <files jcr:primaryType="jnt:folder"/>
             <contents jcr:primaryType="jnt:contentFolder"/>
-            <product-content-template j:applyOn="vatnt:product"
+            <product-content-template j:applyOn="shopnt:fackProduct"
                                       j:defaultTemplate="true"
                                       j:hiddenTemplate="false"
+                                      j:priority="100"
                                       jcr:primaryType="jnt:contentTemplate">
                <j:translation_en jcr:language="en"
                                  jcr:mixinTypes="mix:title"

@@ -31,7 +31,7 @@
 </c:choose>
 
 
-<c:set var="productsStatementAll" value="select * from [vatnt:product] as products where ISDESCENDANTNODE(products,'${folderPath}') ${queryConstraint} order by products.[name] asc"/>
+<c:set var="productsStatementAll" value="select * from [shopnt:fackProduct] as products where ISDESCENDANTNODE(products,'${folderPath}') ${queryConstraint} order by products.[name] asc"/>
 
 <utility:logger level="INFO" value="productsStatementAll : ${productsStatementAll}"/>
 <utility:logger level="INFO" value="maxItems : ${maxItems}"/>

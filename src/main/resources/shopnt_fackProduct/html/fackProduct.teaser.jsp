@@ -21,8 +21,8 @@
 
 <c:set var="articleId" value="${currentNode.properties['articleId'].string}"/>
 <c:set var="name" value="${currentNode.properties['name'].string}"/>
-<c:set var="description" value="${currentNode.properties['description'].string}"/>
-<c:set var="image" value="${currentNode.properties['image'].node}"/>
+<c:set var="description" value="${currentNode.properties['shop:description'].string}"/>
+<c:set var="image" value="${currentNode.properties['shop:image'].node}"/>
 <c:set var="valveType" value="${currentNode.properties['valveType']}"/>
 <c:set var="valveFunction" value="${currentNode.properties['valveFunction']}"/>
 <c:set var="feature" value="${currentNode.properties['feature']}"/>
@@ -44,7 +44,7 @@
 	<div class="card shadow">
 		<img src="${image.url}" class="card-img-top teaserImg" alt="Card Image">
 		<div class="card-body">
-			<h3 class="card-title"><a href="${contentURL}" title="${name}">${name}</a></h3>
+			<h3 class="card-title"><a href="${contentURL}" title="${title}">${title}</a></h3>
 			<c:forEach items="${valveType}" var="item">
 				<span class="badge badge-secondary">${item.node.displayableName}</span>
 			</c:forEach>

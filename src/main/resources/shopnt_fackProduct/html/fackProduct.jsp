@@ -17,18 +17,24 @@
 <%--@elvariable id="renderContext" type="org.jahia.services.render.RenderContext" --%>
 <%--@elvariable id="currentResource" type="org.jahia.services.render.Resource" --%>
 <%--@elvariable id="url" type="org.jahia.services.render.URLGenerator" --%>
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 <template:addResources type="css" resources="productCard.css"/>
 
+<c:set var="modalId" value="${currentNode.identifier}"/>
+
+<c:if test="${renderContext.editMode}">
+    <legend>${fn:escapeXml(jcr:label(currentNode.primaryNodeType, currentResource.locale))}</legend>
+</c:if>
+
+
 <c:set var="name" value="${currentNode.properties['name'].string}"/>
-<c:set var="description" value="${currentNode.properties['description'].string}"/>
-<c:set var="image" value="${currentNode.properties['image'].node}"/>
+<c:set var="description" value="${currentNode.properties['shop:description'].string}"/>
+<c:set var="image" value="${currentNode.properties['shop:image'].node}"/>
 <c:set var="feature" value="${currentNode.properties['feature']}"/>
 <c:set var="benefit" value="${currentNode.properties['benefit']}"/>
 <c:set var="title" value="${currentNode.properties['jcr:title'].string}"/>
 <c:set var="sizes" value="${currentNode.properties['sizes']}"/>
-<c:set var="actuator" value="${currentNode.properties['actuator']}"/>
+<c:set var="actuator" value="${currentNode.properties['actuator'].node}"/>
 <c:set var="valveType" value="${currentNode.properties['valveType']}"/>
 <c:set var="valveFunction" value="${currentNode.properties['valveFunction']}"/>
 <c:set var="body_material" value="${currentNode.properties['body_material']}"/>
@@ -38,37 +44,61 @@
 <c:set var="cycles_until_first_service" value="${currentNode.properties['cycles_until_first_service'].string}"/>
 <c:set var="temperature" value="${currentNode.properties['temperature']}"/>
 <c:set var="mounting_position" value="${currentNode.properties['mounting_position'].string}"/>
+<c:url value="${currentNode.url}" var="contentURL"/>
+<jcr:nodeProperty node="${currentNode}" name="shop:pimid" var="pimid"/>
+<jcr:nodeProperty node="${currentNode}" name="jcr:uuid" var="uuid"/>
+<c:set var="productID" value="${fn:replace(uuid,'-','_')}"/>
 
 
-<div class="container mt-5">
-	<div class="card shadow">
-		<img src="${image.url}" class="card-img-top" alt="Card Image">
-		<div class="card-body">
-			<h5 class="card-title">${name}</h5>
-			<c:forEach items="${valveType}" var="item">
-				<span class="badge badge-secondary">${item.node.displayableName}</span>
-			</c:forEach>
-			<c:forEach items="${valveFunction}" var="item">
-				<span class="badge badge-info">${item.node.displayableName}</span>
-			</c:forEach>
-			<div class="card-text">${description}
-				<p><strong><fmt:message key='vatnt_product.benefit'/></strong>
-				<ul>
-					<c:forEach items="${benefit}" var="item">
-						<li>${item.string}</li>
-					</c:forEach>
-				</ul>
-				</p>
-				<p><strong><fmt:message key='vatnt_product.feature'/></strong>
-				<ul>
-					<c:forEach items="${feature}" var="item">
-						<li>${item.string}</li>
-					</c:forEach>
-				</ul>
-				</p></div>
-		</div>
-	</div>
+<script>
+    const product_${productID} = {
+        uuid: "${uuid}",
+        pimid: "${pimid}",
+        qty: 1
+    }
+</script>
+
+<template:include
+        view="hidden.modal"/>
+
+<div class="product-card  d-flex flex-column">
+    <div class="d-flex justify-content-center">
+        <img src="${image.url}" class="card-img-top" alt="Card image">
+    </div>
+    <div class="card-body">
+        <c:forEach items="${valveType}" var="item">
+            <span class="badge badge-secondary">${item.node.displayableName}</span>
+        </c:forEach>
+        <c:forEach items="${valveFunction}" var="item">
+            <span class="badge badge-info">${item.node.displayableName}</span>
+        </c:forEach>
+
+        <h3 class="card-title"><a href="${contentURL}" title="${title}">${title}</a></h3>
+        <div class="card-text"><p>${description}</p>
+            <p><strong><fmt:message key='vatnt_product.benefit'/></strong>
+            <ul>
+                <c:forEach items="${benefit}" var="item">
+                    <li>${item.string}</li>
+                </c:forEach>
+            </ul>
+            </p>
+            <p><strong><fmt:message key='vatnt_product.feature'/></strong>
+            <ul>
+                <c:forEach items="${feature}" var="item">
+                    <li>${item.string}</li>
+                </c:forEach>
+            </ul>
+            </p>
+
+            <div class="text-center">
+                <hr class="mt-2"/>
+                <button type="button"
+                        class="btn btn-outline-dark btn-sm"
+                        data-toggle="modal"
+                        data-target="#modal-${modalId}">
+                    <fmt:message key='vatmix_technical_data'/>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
